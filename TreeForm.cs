@@ -16,7 +16,8 @@ namespace Naidis_Vorm
         RadioButton r1, r2;
         CheckBox c1, c2;
         PictureBox pb;
-       
+        Kolmnurk kolmnurk;
+        
         double i=0;
         int j, o = 0;
         public TreeForm()
@@ -86,6 +87,9 @@ namespace Naidis_Vorm
             pb.Size = new Size(200, 200);
             pb.SizeMode = PictureBoxSizeMode.Zoom;
             pb.BorderStyle = BorderStyle.Fixed3D;
+            tn.Nodes.Add("kolmnurk");
+             kolmnurk = new Kolmnurk();
+            
             this.Controls.Add(tree);
 
             
@@ -213,6 +217,10 @@ namespace Naidis_Vorm
             {
                 pb.Visible = true;
                
+            }
+            else if (e.Node.Text == "kolmnurk")
+            {
+                new Kolmnurk().Show();
             }
 
 
