@@ -68,5 +68,13 @@ namespace Naidis_Vorm
                 else return true;
             }
         }
+        
+            public double Height()
+        {
+            double s = Surface(); 
+            double h = (2 * s) / a; 
+            return h;
+        }
+    
     }
 }
