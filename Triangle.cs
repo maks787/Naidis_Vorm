@@ -75,6 +75,7 @@ namespace Naidis_Vorm
             double h = (2 * s) / a; 
             return h;
         }
-    
+
+
     }
 }
