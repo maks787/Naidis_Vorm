@@ -122,18 +122,21 @@ namespace Naidis_Vorm
             listView1.Items.Add(new ListViewItem(new[] { "Периметр", Convert.ToString(triangle.Perimeter()) }));
             listView1.Items.Add(new ListViewItem(new[] { "Площадь", Convert.ToString(triangle.Surface()) }));
             listView1.Items.Add(new ListViewItem(new[] { "Высота", Convert.ToString(triangle.Height()) }));
+
             string triangleType = GetTriangleType(a, b, c);
             listView1.Items.Add(new ListViewItem(new[] { "Тип треугольника", triangleType }));
 
+            ListViewItem existsItem = new ListViewItem(new[] { "Существует?" });
             if (triangle.ExistTriange)
             {
-                listView1.Items.Add(new ListViewItem(new[] { "Существует", "Существует" }));
+                existsItem.SubItems.Add("Существует");
             }
             else
             {
-                listView1.Items.Add(new ListViewItem(new[] { "Существует", "Не существует" }));
+                existsItem.SubItems.Add("Не существует");
             }
-
+            listView1.Items.Add(existsItem);
         }
+
     }
 }

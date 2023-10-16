@@ -63,13 +63,14 @@ namespace Naidis_Vorm
         {
             get
             {
-                if ((a>b+c)&&(b>a+c)&&(c>a+b))
+                if (a >= b + c || b >= a + c || c >= a + b)
                     return false;
-                else return true;
+                else
+                    return true;
             }
         }
-        
-            public double Height()
+
+        public double Height()
         {
             double s = Surface(); 
             double h = (2 * s) / a; 
