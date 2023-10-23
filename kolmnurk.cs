@@ -3,6 +3,7 @@ using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Windows.Forms;
+using static System.Windows.Forms.DataFormats;
 
 namespace Naidis_Vorm
 {
@@ -17,16 +18,25 @@ namespace Naidis_Vorm
         Label lblB;
         Label lblC;
         ListView listView1;
-
+        Button btn2;
+        
         public Kolmnurk()
         {
             this.Height = 600;
             this.Width = 800;
             this.Text = "";
 
+
+
+            btn2 = new Button();
+            btn2.Location = new Point(450, 350);
+            btn2.Text = "Teine Form";
+            btn2.Size = new Size(100, 50);
+            btn2.BackColor = Color.Red;
+
             btn = new Button();
             btn.Location = new Point(400, 100);
-            btn.Text = "Запуск";
+            btn.Text = "Käivitamine";
             btn.Size = new Size(200, 100);
             btn.BackColor = Color.Yellow;
 
@@ -39,7 +49,7 @@ namespace Naidis_Vorm
             pb.BorderStyle = BorderStyle.Fixed3D;
 
             lblA = new Label();
-            lblA.Text = "Сторона A:";
+            lblA.Text = "Külg A:";
             lblA.Location = new Point(100, 260);
 
             txtA = new TextBox();
@@ -50,7 +60,7 @@ namespace Naidis_Vorm
             txtA.Location = new Point(200, 250);
 
             lblB = new Label();
-            lblB.Text = "Сторона B:";
+            lblB.Text = "Külg B:";
             lblB.Location = new Point(100, txtA.Top + txtA.Height + 10);
 
             txtB = new TextBox();
@@ -61,7 +71,7 @@ namespace Naidis_Vorm
             txtB.Location = new Point(200, txtA.Top + txtA.Height + 10);
 
             lblC = new Label();
-            lblC.Text = "Сторона C:";
+            lblC.Text = "Külg C:";
             lblC.Location = new Point(100, txtB.Top + txtB.Height + 10);
 
             txtC = new TextBox();
@@ -76,6 +86,10 @@ namespace Naidis_Vorm
             listView1.Location = new Point(10, 10);
             listView1.Size = new Size(350, 230);
 
+
+
+
+            this.Controls.Add(btn2);
             this.Controls.Add(btn);
             this.Controls.Add(pb);
             this.Controls.Add(lblA);
@@ -87,21 +101,34 @@ namespace Naidis_Vorm
             this.Controls.Add(listView1);
 
             btn.Click += Run_button_click;
+            btn2.Click += OpenForm2;
         }
         private string GetTriangleType(double a, double b, double c)
         {
-            if (a == b && b == c)
+            if (a + b > c && a + c > b && b + c > a)
             {
-                return "Равносторонний треугольник";
-            }
-            else if (a == b || a == c || b == c)
-            {
-                return "Равнобедренный треугольник";
+                if (a == b && b == c)
+                {
+                    return "Võrdkülgne kolmnurk";
+                }
+                else if (a == b || a == c || b == c)
+                {
+                    return "Võrdhaardne kolmnurk";
+                }
+                else
+                {
+                    return "Külgmine kolmnurk";
+                }
             }
             else
             {
-                return "Разносторонний треугольник";
+                return "ei ole";
             }
+        }
+        public void OpenForm2(object sender, EventArgs e)
+        {
+            Form2 form2 = new Form2();
+            form2.Show();
         }
         private void Run_button_click(object sender, EventArgs e)
         {
@@ -113,27 +140,27 @@ namespace Naidis_Vorm
             Triangle triangle = new Triangle(a, b, c);
             listView1.View = View.Details;
 
-            listView1.Columns.Add("Параметр", 100);
-            listView1.Columns.Add("Значение", 150);
+            listView1.Columns.Add("Parameeter", 100);
+            listView1.Columns.Add("Tähtsus", 150);
 
-            listView1.Items.Add(new ListViewItem(new[] { "Сторона А", triangle.outputA() }));
-            listView1.Items.Add(new ListViewItem(new[] { "Сторона B", triangle.outputB() }));
-            listView1.Items.Add(new ListViewItem(new[] { "Сторона C", triangle.outputC() }));
-            listView1.Items.Add(new ListViewItem(new[] { "Периметр", Convert.ToString(triangle.Perimeter()) }));
-            listView1.Items.Add(new ListViewItem(new[] { "Площадь", Convert.ToString(triangle.Surface()) }));
-            listView1.Items.Add(new ListViewItem(new[] { "Высота", Convert.ToString(triangle.Height()) }));
+            listView1.Items.Add(new ListViewItem(new[] { "Külg A", triangle.outputA() }));
+            listView1.Items.Add(new ListViewItem(new[] { "Külg B", triangle.outputB() }));
+            listView1.Items.Add(new ListViewItem(new[] { "Külg C", triangle.outputC() }));
+            listView1.Items.Add(new ListViewItem(new[] { "Ümbermõõt", Convert.ToString(triangle.Perimeter()) }));
+            listView1.Items.Add(new ListViewItem(new[] { "Pindala", Convert.ToString(triangle.Surface()) }));
+            listView1.Items.Add(new ListViewItem(new[] { "Kõrgus", Convert.ToString(triangle.Height()) }));
 
             string triangleType = GetTriangleType(a, b, c);
-            listView1.Items.Add(new ListViewItem(new[] { "Тип треугольника", triangleType }));
+            listView1.Items.Add(new ListViewItem(new[] { "Kolmnurk tüüpi", triangleType }));
 
-            ListViewItem existsItem = new ListViewItem(new[] { "Существует?" });
+            ListViewItem existsItem = new ListViewItem(new[] { "On olemas?" });
             if (triangle.ExistTriange)
             {
-                existsItem.SubItems.Add("Существует");
+                existsItem.SubItems.Add("On olemas");
             }
             else
             {
-                existsItem.SubItems.Add("Не существует");
+                existsItem.SubItems.Add("Ei ole olemas");
             }
             listView1.Items.Add(existsItem);
         }

@@ -83,7 +83,7 @@ namespace Naidis_Vorm
             pb = new PictureBox();
             pb.Location= new Point(tree.Width, c2.Location.Y + c2.Height);
             pb.Visible = false;
-            pb.Image = new Bitmap("../../../untitled.png");
+            pb.Image = new Bitmap("../../../aaaa.jpg");
             pb.Size = new Size(200, 200);
             pb.SizeMode = PictureBoxSizeMode.Zoom;
             pb.BorderStyle = BorderStyle.Fixed3D;

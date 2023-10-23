@@ -17,26 +17,37 @@ namespace Naidis_Vorm
             a = A;
             b = B;
             c = C;
+            
         }
         public string outputA() { return Convert.ToString(a); }
         public string outputB() { return Convert.ToString(b); }
+        
         public string outputC()
         {
             return Convert.ToString(c);
         }
         public double Perimeter()
         {
-            double p = 0;
-            p = a + b + c;
-            return p;
+            if (a + b > c && a + c > b && b + c > a)
+            {
+                return a + b + c;
+            }
+            else
+            {
+                return 0; 
+            }
         }
         public double Surface()
         {
-            double s = 0;
-            double p = 0;
-            p = (a + b + c) / 2;
-            s = Math.Sqrt((p*(p-a)*(p-b)*(p-c)));
-            return s;
+            if (a + b > c && a + c > b && b + c > a)
+            {
+                double p = (a + b + c) / 2;
+                return Math.Sqrt(p * (p - a) * (p - b) * (p - c));
+            }
+            else
+            {
+                return 0; 
+            }
         }
         public double GetSetA
         {
@@ -72,11 +83,21 @@ namespace Naidis_Vorm
 
         public double Height()
         {
-            double s = Surface(); 
-            double h = (2 * s) / a; 
-            return h;
+            if (a + b > c && a + c > b && b + c > a)
+            {
+                double s = Surface();
+                return (2 * s) / a;
+            }
+            else
+            {
+                return 0; 
+            }
         }
 
-
+        public double Surface2(double a, double h)
+        {
+            double s = (a * h) / 2;
+            return s;
+        }
     }
 }
